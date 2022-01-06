@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "35e110f6-a0a5-4b85-90ab-4cf489b2c44b": {
+      "ProjectGuid": "35e110f6-a0a5-4b85-90ab-4cf489b2c44b",
+      "DisplayName": "SudokuGame",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

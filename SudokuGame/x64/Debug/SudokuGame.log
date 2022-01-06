@@ -1,0 +1,3 @@
+﻿  SudokuGame.cpp
+D:\UP\SUDOKUgame-kleo\SudokuGame\SudokuGame.cpp(260,22): warning C4553: '==': result of expression not used; did you intend '='?
+  SudokuGame.vcxproj -> D:\UP\SUDOKUgame-kleo\x64\Debug\SudokuGame.exe
