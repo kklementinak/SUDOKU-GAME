@@ -5,6 +5,11 @@
       "ProjectGuid": "35e110f6-a0a5-4b85-90ab-4cf489b2c44b",
       "DisplayName": "SudokuGame",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1
