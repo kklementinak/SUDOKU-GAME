@@ -48,7 +48,7 @@ using namespace std;
 	int secondVariable2(int second, int first) {
 
 		int typeOfOPeration;
-		if (first==2) {
+		if (first==1) {
 			typeOfOPeration = rand() % (N + 1) + 1;
 			if (typeOfOPeration % 2 == 0) {
 				second = first + 1;
@@ -58,7 +58,7 @@ using namespace std;
 			}
 
 		}
-		if (first == 3) {
+		if (first == 2) {
 			typeOfOPeration = rand() % (N + 1) + 1;
 			if (typeOfOPeration % 2 == 0) {
 				second = first - 2;
@@ -67,7 +67,7 @@ using namespace std;
 				second = first - 1;
 			}
 		}
-		if (first == 1) {
+		if (first == 0) {
 			typeOfOPeration = rand() % (N + 1) + 1;
 			if (typeOfOPeration % 2 == 0) {
 				second = first + 1;
@@ -138,13 +138,13 @@ int main()
 	
 
 	int numberOfChanges;
-	numberOfChanges = rand() % N;
+	numberOfChanges = 5;
 
 	int change;
 	int sudokuTemplate[N][N];
 
 	for (int s = 0; s < numberOfChanges; s++) {
-		change = rand() % 4 + 1;
+		change = rand() % 2 + 1;
 		if (change == TWO_ROWS) {
 			int row;
 			row = rand() % N;
@@ -154,13 +154,13 @@ int main()
 				for (int s = 0; s < N; s++) {
 					sudokuTemplate[c][s] = sudoku[c][s];
 
-						if (c == row) {
-							sudokuTemplate[c][s] = sudoku[row2][s];
-						}
-						if (c == row2) {
-							sudokuTemplate[c][s] = sudoku[row][s];
-						}
-			
+					if (c == row) {
+						sudokuTemplate[c][s] = sudoku[row2][s];
+					}
+					if (c == row2) {
+						sudokuTemplate[c][s] = sudoku[row][s];
+					}
+
 				}
 			}
 
@@ -186,18 +186,24 @@ int main()
 		}
 		// at the following two we will use the numbers 1,2,3 to tell whitch whole three we will be taking
 		// That's why we use N/3 (9/3=3)
-		if (change == THREE_ROWS) {
+		
+		
+		
+		/*if (change == THREE_ROWS) {
 			int rows;
-			rows = rand() % (N / 3) + 1;
+			rows = rand() % (N / 3);
 			int rows2 = 0;
 			rows2 = secondVariable2(rows2, rows);
 			for (int c = 0; c < N; c++) {
 				for (int v = 0; v < N; v++) {
 					sudokuTemplate[c][s] = sudoku[c][s];
-					if (c == (3 * rows-2)) {
+					if (c == (3 * rows - 2)) {
 						sudokuTemplate[c][s] = sudoku[c][(3 * rows2 - 2)];
 					}
 					if (c == rows) {
+						sudokuTemplate[c][s] = sudoku[c][rows2];
+					}
+					if (c == rows + 1) {
 						sudokuTemplate[c][s] = sudoku[c][rows2];
 					}
 				}
@@ -207,17 +213,45 @@ int main()
 		}
 		if (change == THREE_COLUMNS) {
 			int columns;
-			columns = rand() % (N / 3) + 1;
+			columns = rand() % (N / 3);
 			int columns2 = 0;
 			columns2 = secondVariable(columns2, columns);
+			for (int c = 0; c < N; c++) {
+				for (int v = 0; v < N; v++) {
+					sudokuTemplate[c][s] = sudoku[c][s];
+					if (c == (3 * columns - 2)) {
+						sudokuTemplate[c][s] = sudoku[(3 * columns2 - 2)][s];
+					}
+					if (c == columns) {
+						sudokuTemplate[c][s] = sudoku[columns2][s];
+					}
+					if (c == columns + 1) {
+						sudokuTemplate[c][s] = sudoku[columns2][s];
+					}
+
+				}
+			}
+		}*/
+
+	}
+	if (numberOfChanges == 0) {
+		for (int y = 0; y < N; y++) {
+			for (int u = 0; u < N; u++) {
+				sudokuTemplate[y][u] = sudoku[y][u];
+			}
 		}
 	}
 
 
-	
-
-
 	printSudoku(sudokuTemplate);
+
+	int sudokuKey[N][N];
+	for (int y = 0; y < N; y++) {
+		for (int u = 0; u < N; u++) {
+			sudokuKey[y][u] = sudoku[y][u];
+		}
+	}
+
 
 
 
@@ -228,11 +262,13 @@ int main()
 
 	
 	int count = 0;
-	//while (level != 'B' || level != 'E' || level != 'M' || level != 'H' || level != 'U') {
-	//	cout << "Please enter valid level: ";
-	//	cin >> level;
-	//}
-	// 
+
+
+	while (level != 'B' && level != 'E' && level != 'M' && level != 'H' && level != 'U') {
+		cout << "please enter valid level: ";
+		cin >> level;
+	}
+	 
 
 
 	// Here are the possible levels and how they are dtertnmined:
@@ -245,7 +281,7 @@ int main()
 		// | Ultimate   | 22 - 27              | 54 - 59
 	//http://zhangroup.aporc.org/images/files/Paper_3485.pdf This is the resource i used for the information above.
 	if (level == 'B') {
-		count = rand() % 30;
+		count = rand() % 30 + 1;
 	}
 	if (level == 'E') {
 		count = rand() % 5 + 40;
@@ -266,8 +302,7 @@ int main()
 	//random delete of the sudoku munbers
 	int ii = rand() % N;
 	int jj = rand() % N;
-	while (count > 0)//trqbva mi do while
-	{
+	while (count > 0){
 		if (sudokuTemplate[ii][jj] != 0) {
 			sudokuTemplate[ii][jj] = 0;
 			count--;
@@ -293,7 +328,7 @@ int main()
 	int column = 0;
 	int number = 0;
 	char answer;
-	cout << "The first cooridnates digits are 1." << "\n";
+	cout << "The first cooridnates digits are 1. The fist number is the row, then the column and the missing number at the end." << "\n";
 	//TAQ RABOTA TRQBVA A E S REKURSIQ CHE INA4E SI E EBAN*
 	while (counter > 0) {
 		cout << "\n" << "Please enter the missing digits: ";
@@ -303,10 +338,9 @@ int main()
 		//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
 		row--;
 		column--;
-		cout << "\n";
 
 		//MOJE BI I TUK S R
-		while ((row < 0 || row >= 9) || (column >= 9 || column < 0 )|| (number>9 || number <= 0)) {
+		while ((row < 0 || row >= 9) || (column >= 9 || column < 0 ) || (number>9 || number < 0)) {
 			cout << "Invalid operation. There is no such number with these cordinates. Try anather one: ";
 			cin >> row >> column >> number;
 			cout << "\n";
@@ -324,12 +358,12 @@ int main()
 			sudokuGame[row][column] = number;
 		}
 		
-		cout << "Do you want to validate you solution?" << "\n" << "type Y-yes N-no" <<"\n"<< " Please enter your desicion: ";
+		cout << "Do you want to validate you solution?" << "\n" << "type: Y-yes N-no" <<"\n"<< "Please enter your desicion: ";
 		cin >> answer;
 		cout << "\n";
 		if (answer == 'Y') {
 			
-			if (sudokuGame[row][column] == sudoku[row][column]) {
+			if (number == sudokuKey[row][column]) {
 				cout << "Your answer is right."<<"\n";
 			}
 			else {
@@ -343,7 +377,7 @@ int main()
 
 	for (int d = 0; d < N; d++) {
 		for (int f = 0; f < N; f++) {
-			if (sudokuGame[d][f] != sudoku[d][f]) {
+			if (sudokuGame[d][f] != sudokuKey[d][f]) {
 				isSudokuRight = 0;
 			}
 		}
@@ -360,28 +394,7 @@ int main()
 		cout << "\n";
 		if (response == 'E') {
 			cout << "This was the correct sudoku:" << "\n";
-			for (int z = 0; z < N; z++) {
-				for (int a = 0; a < N; a++) {
-					
-					if (z == 0 && a == 0) {
-						cout << " ";
-					}
-					cout << sudokuTemplate[z][a] << " ";
-					if (a == 2 || a == 5) {
-						cout << "|";
-					}
-
-					if (a == N - 1) {
-						cout << "\n" << " ";
-						if (z == 2 || z == 5) {
-							for (int w = 0; w < N; w++) {
-								cout << "--";
-							}
-							cout << "\n" << " ";
-						}
-					}
-				}
-			}
+			printSudoku(sudokuTemplate);
 		}
 
 		bool check = 1;
@@ -421,7 +434,7 @@ int main()
 
 				for (int dd = 0; dd < N; dd++) {
 					for (int ff = 0; ff < N; ff++) {
-						if (sudokuGame[dd][ff] != sudoku[dd][ff]) {
+						if (number != sudokuKey[dd][ff]) {
 							isSudokuRight = 0;
 						}
 						else {
