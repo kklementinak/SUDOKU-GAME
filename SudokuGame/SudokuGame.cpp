@@ -12,7 +12,7 @@ using namespace std;
 
 	int secondVariable(int second, int first) {
 		
-		// For easier math operations we will add 1 to the 'first' so it would be devisible by 3
+		// For easier math operations we will add 1 to the 'first' so it would be devisible by 3, easier to count ect.
 		int typeOfOPeration;
 		if (1<(first + 1) < 3 || 4 < (first + 1) < 6 || 7 < (first + 1) < 9) {
 			typeOfOPeration = rand() % (N + 1) + 1;
@@ -45,39 +45,41 @@ using namespace std;
 		return second;
 }
 
-	int secondVariable2(int second, int first) {
+	//int secondVariable2(int second, int first) {
 
-		int typeOfOPeration;
-		if (first==1) {
-			typeOfOPeration = rand() % (N + 1) + 1;
-			if (typeOfOPeration % 2 == 0) {
-				second = first + 1;
-			}
-			else {
-				second = first - 1;
-			}
+	//	int typeOfOPeration;
+	//	if (first==1) {
+	//		typeOfOPeration = rand() % (N + 1) + 1;
+	//		if (typeOfOPeration % 2 == 0) {
+	//			second = first + 1;
+	//		}
+	//		else {
+	//			second = first - 1;
+	//		}
 
-		}
-		if (first == 2) {
-			typeOfOPeration = rand() % (N + 1) + 1;
-			if (typeOfOPeration % 2 == 0) {
-				second = first - 2;
-			}
-			else {
-				second = first - 1;
-			}
-		}
-		if (first == 0) {
-			typeOfOPeration = rand() % (N + 1) + 1;
-			if (typeOfOPeration % 2 == 0) {
-				second = first + 1;
-			}
-			else {
-				second = first + 2;
-			}
-		}
-		return second;
-	}
+	//	}
+	//	if (first == 2) {
+	//		typeOfOPeration = rand() % (N + 1) + 1;
+	//		if (typeOfOPeration % 2 == 0) {
+	//			second = first - 2;
+	//		}
+	//		else {
+	//			second = first - 1;
+	//		}
+	//	}
+	//	if (first == 0) {
+	//		typeOfOPeration = rand() % (N + 1) + 1;
+	//		if (typeOfOPeration % 2 == 0) {
+	//			second = first + 1;
+	//		}
+	//		else {
+	//			second = first + 2;
+	//		}
+	//	}
+	//	return second;
+	//}
+	 
+	
     //how to print cool sudoku
 	void printSudoku(int display[N][N]) {
 			
@@ -132,10 +134,7 @@ int main()
 		 { 7, 4, 5, 2, 8, 6, 3, 1, 9 } };
 
 
-
-	// zna4i eamenqm koloni redove ili po 3
-
-	
+		
 
 	int numberOfChanges;
 	numberOfChanges = 5;
@@ -143,6 +142,7 @@ int main()
 	int change;
 	int sudokuTemplate[N][N];
 
+	//Here a few changes to sudoku are made it can be chaged by columns and rows depending on the random generated numbers which lead to certain operations
 	for (int s = 0; s < numberOfChanges; s++) {
 		change = rand() % 2 + 1;
 		if (change == TWO_ROWS) {
@@ -234,6 +234,8 @@ int main()
 		}*/
 
 	}
+
+	//If there are no changes the sudoku is the one from the text file.
 	if (numberOfChanges == 0) {
 		for (int y = 0; y < N; y++) {
 			for (int u = 0; u < N; u++) {
@@ -242,7 +244,7 @@ int main()
 		}
 	}
 
-
+	//TOVA GO MAHNI POSLE
 	printSudoku(sudokuTemplate);
 
 	int sudokuKey[N][N];
@@ -254,7 +256,7 @@ int main()
 
 
 
-
+	// Here the user chooses which level to play. 
 	char level;
 	cout << "Choose level of difficulty: B-beginner; E-easy; M-medium; H-hard; U-ultimate" << "\n" << "type only the capital letter of the level" << "\n" << "Please enter which level you want: ";
 	cin >> level;
@@ -263,13 +265,12 @@ int main()
 	
 	int count = 0;
 
-
+	//Validation of the data the user enters. 
 	while (level != 'B' && level != 'E' && level != 'M' && level != 'H' && level != 'U') {
-		cout << "please enter valid level: ";
+		cout << "please enter a valid level: ";
 		cin >> level;
 	}
 	 
-
 
 	// Here are the possible levels and how they are dtertnmined:
 		// | Level Name | Initial no.of Givens | Initial no. of Missing
@@ -280,6 +281,7 @@ int main()
 		// | Hard       | 28 - 31              | 50 - 53
 		// | Ultimate   | 22 - 27              | 54 - 59
 	//http://zhangroup.aporc.org/images/files/Paper_3485.pdf This is the resource i used for the information above.
+
 	if (level == 'B') {
 		count = rand() % 30 + 1;
 	}
@@ -297,9 +299,16 @@ int main()
 	}
 
 	cout << "\n";
+
+	//we make a new variable which we will use later on beacuse rom the first one we will extract numbers and the data will be lost.
 	int counter = count;
-	cout << count << "\n";
-	//random delete of the sudoku munbers
+	
+
+	cout << count << "\n";//TOVA GO MAHNI
+
+
+
+	//Random delete of the sudoku munbers.
 	int ii = rand() % N;
 	int jj = rand() % N;
 	while (count > 0){
@@ -317,7 +326,7 @@ int main()
 
 	printSudoku(sudokuTemplate);
 
-
+	//The matrix sudokuGame is the one that will be changed by the user, the sudokuTemplate - the one which tells if the numbers can be changed and the sudokuKey - the one that will validate the sudokuGame.
 	int sudokuGame[N][N];
 	for (int pp = 0; pp < N; pp++) {
 		for (int oo = 0; oo < N; oo++) {
@@ -328,8 +337,8 @@ int main()
 	int column = 0;
 	int number = 0;
 	char answer;
-	cout << "The first cooridnates digits are 1. The fist number is the row, then the column and the missing number at the end." << "\n";
-	//TAQ RABOTA TRQBVA A E S REKURSIQ CHE INA4E SI E EBAN*
+	cout << "The first cooridnates digits are 1. The fist number is the row, then the column and the missing number at the end." << "\n"<<"for example the coordinates of the tird number in the second row are: *2 3 number* "<<"\n";
+	 
 	while (counter > 0) {
 		cout << "\n" << "Please enter the missing digits: ";
 		cin >> row >> column >> number;
@@ -339,12 +348,13 @@ int main()
 		row--;
 		column--;
 
-		//MOJE BI I TUK S R
+		//Validataion of the data the user enters.
 		while ((row < 0 || row >= 9) || (column >= 9 || column < 0 ) || (number>9 || number < 0)) {
 			cout << "Invalid operation. There is no such number with these cordinates. Try anather one: ";
 			cin >> row >> column >> number;
 			cout << "\n";
 		}
+
 		while(sudokuTemplate[row][column] != 0){
 				cout << "Invalid operation. You can't change this number. Try anather one: ";
 				cin >> row >> column >> number;
