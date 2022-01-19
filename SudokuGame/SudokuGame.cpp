@@ -163,7 +163,8 @@ int main()
 		 { 6, 9, 2, 3, 5, 1, 8, 7, 4 },
 		 { 7, 4, 5, 2, 8, 6, 3, 1, 9 } };
 
-
+	printSudoku(sudoku);
+	cout << "............................." << endl;
 
 
 	int numberOfChanges;
@@ -244,27 +245,27 @@ int main()
 			//
 			cout << rows << rows2 << endl;
 			for (int c = 0; c < N; c++) {
-				for (int v = 0; v < N; v++) {
+				for (int s = 0; s < N; s++) {
 
 					sudokuTemplate[c][s] = sudoku[c][s];
 					//We substract one because our matrx indices start from 0 and not 1.
-					if (c == (3 * rows - 3)) {
-						sudokuTemplate[c][s] = sudoku[c][(3 * rows2 - 3)];
+					if (c == (3 * rows - 3)) {//row 0
+						sudokuTemplate[c][s] = sudoku[3 * rows2 - 3][s];
 					}
-					if (c == (3 * rows - 2)) {
-						sudokuTemplate[c][s] = sudoku[c][3 * rows2 - 2];
+					if (c == (3 * rows - 2)) {//row 1
+						sudokuTemplate[c][s] = sudoku[3 * rows2 - 2][s];
 					}
-					if (c == 3 * rows - 1) {
-						sudokuTemplate[c][s] = sudoku[c][3 * rows2 - 1];
+					if (c == (3 * rows - 1)) {//row 2
+						sudokuTemplate[c][s] = sudoku[3 * rows2 - 1][s];
 					}
 					if (c == (3 * rows2 - 3)) {
-						sudokuTemplate[c][s] = sudoku[c][(3 * rows - 3)];
+						sudokuTemplate[c][s] = sudoku[3 * rows - 3][s];
 					}
 					if (c == (3 * rows2 - 2)) {
-						sudokuTemplate[c][s] = sudoku[c][3 * rows - 2];
+						sudokuTemplate[c][s] = sudoku[3 * rows - 2][s];
 					}
-					if (c == 3 * rows2 - 1) {
-						sudokuTemplate[c][s] = sudoku[c][3 * rows - 1];
+					if (c == (3 * rows2 - 1)) {
+						sudokuTemplate[c][s] = sudoku[3 * rows - 1][s];
 					}
 				}
 
@@ -273,35 +274,39 @@ int main()
 			printSudoku(sudokuTemplate);
 			cout << "............................." << endl;
 		}
+
 		if (change == THREE_COLUMNS) {
 			int columns;
 			columns = rand() % (N / 3) + 1;
 			int columns2 = 0;
-			columns2 = secondVariable(columns2, columns);
+			columns2 = secondVariable2(columns2, columns);
 
 
 			//
 			cout << columns << columns2 << endl;
-			for (int c = 0; c < N; c++) {
-				for (int v = 0; v < N; v++) {
-					sudokuTemplate[c][s] = sudoku[c][s];
+			
+			for (int v = 0; v < N; v++){
+				for (int c = 0; c < N; c++) { 
+				sudokuTemplate[v][c] = sudoku[v][c];
 					if (c == (3 * columns - 3)) {
-						sudokuTemplate[c][s] = sudoku[(3 * columns2 - 3)][s];
+						sudokuTemplate[v][c] = sudoku[v][3 * columns2 - 3];
 					}
-					if (c == 3 * columns - 2) {
-						sudokuTemplate[c][s] = sudoku[3 * columns2 - 2][s];
+					if (c == (3 * columns - 2)) {
+						sudokuTemplate[v][c] = sudoku[v][3 * columns2 - 2];
 					}
-					if (c == 3 * columns - 1) {
-						sudokuTemplate[c][s] = sudoku[3 * columns2 - 1][s];
+					if (c == (3 * columns - 1)) {
+						sudokuTemplate[v][c] = sudoku[v][3 * columns2 - 1];
 					}
+
 					if (c == (3 * columns2 - 3)) {
-						sudokuTemplate[c][s] = sudoku[(3 * columns - 3)][s];
+						sudokuTemplate[v][c] = sudoku[v][3 * columns - 3];
 					}
-					if (c == 3 * columns2 - 2) {
-						sudokuTemplate[c][s] = sudoku[3 * columns - 2][s];
+				
+					if (c == (3 * columns2 - 2)) {
+						sudokuTemplate[v][c] = sudoku[v][3 * columns - 2];
 					}
-					if (c == 3 * columns2 - 1) {
-						sudokuTemplate[c][s] = sudoku[3 * columns - 1][s];
+					if (c == (3 * columns2 - 1)) {
+						sudokuTemplate[v][c] = sudoku[v][3 * columns - 1];
 					}
 				}
 			}
