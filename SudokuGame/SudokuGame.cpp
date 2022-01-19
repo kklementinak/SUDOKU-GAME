@@ -503,23 +503,23 @@ int main()
 				//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
 
 
-				//NA DVATA WHILE BUGVA
+					//Validataion of the data the user enters.
+				bool check = 0;
+				check = isDataCorrect(row, column, number, sudokuTemplate);
+				while (check == 0) {
 
-				while ((row < 0 || row >= 9) || (column >= 9 && column < 0) || (number > 9 || number <= 0)) {
-					cout << "\n " << "Invalid operation.There is no such number with these cordinates.Try anather one: ";
 					cin >> row >> column >> number;
-					cout << "\n";
+					check = isDataCorrect(row, column, number, sudokuTemplate);
 				}
-				while (sudokuTemplate[row][column] != 0) {
-					cout << "Invalid operation. You can't change this number. Try anather one: ";
-					cin >> row >> column >> number;
-					cout << "\n";
+				//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
+				row--;
+				column--;
+
+				
+				if (sudokuGame[row][column] == 0) {
+					sudokuGame[row][column] = number;
 				}
-				//TUK OPRAVI
-				if (sudokuGame[row-1][column-1] == 0) {
-					sudokuGame[row-1][column-1] = number;
-				}
-				else if (sudokuGame[row-1][column-1] != 0 && sudokuTemplate[row-1][column] == 0) {
+				else if (sudokuGame[row][column] != 0 && sudokuTemplate[row][column] == 0) {
 					sudokuGame[row][column] = number;
 				}
 
