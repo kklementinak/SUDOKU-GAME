@@ -1,5 +1,5 @@
 ﻿  SudokuGame.cpp
 D:\UP\SUDOKUgame-kleo\SudokuGame\SudokuGame.cpp(17,8): warning C4804: '<': unsafe use of type 'bool' in operation
-D:\UP\SUDOKUgame-kleo\SudokuGame\SudokuGame.cpp(17,30): warning C4804: '<': unsafe use of type 'bool' in operation
-D:\UP\SUDOKUgame-kleo\SudokuGame\SudokuGame.cpp(17,53): warning C4804: '<': unsafe use of type 'bool' in operation
+D:\UP\SUDOKUgame-kleo\SudokuGame\SudokuGame.cpp(17,31): warning C4804: '<': unsafe use of type 'bool' in operation
+D:\UP\SUDOKUgame-kleo\SudokuGame\SudokuGame.cpp(17,54): warning C4804: '<': unsafe use of type 'bool' in operation
   SudokuGame.vcxproj -> D:\UP\SUDOKUgame-kleo\x64\Debug\SudokuGame.exe
