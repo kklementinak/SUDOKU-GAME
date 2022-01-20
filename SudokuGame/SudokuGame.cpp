@@ -1,5 +1,6 @@
 # include <iostream>
 # include <cstdio>
+# include <fstream>
 using namespace std;
 # define N 9
 
@@ -82,7 +83,7 @@ int secondVariable2(int second, int first) {
 
 
 //how to print cool sudoku
-void printSudoku(int display[N][N]) {
+void printSudoku(int** display) {
 
 	for (int hh = 0; hh < N; hh++) {
 		for (int gg = 0; gg < N; gg++) {
@@ -113,7 +114,7 @@ void printSudoku(int display[N][N]) {
 }
 
 //The bool function checks if tha data that the user enters is valid.
-bool isDataCorrect(int row, int column, int number, int sudokuMatrix[N][N]) {
+bool isDataCorrect(int row, int column, int number, int** sudokuMatrix) {
 	bool check = 0;
 	//Here it checks if the data is within the borders of the sudoku indices.
 	if ((row + '0' < '0' || row + '0' > '9') || (column + '0' > '9' || column + '0' < '0') || (number + '0' > '9' || number + '0' < '0')) {
@@ -134,7 +135,6 @@ bool isDataCorrect(int row, int column, int number, int sudokuMatrix[N][N]) {
 		check = 1;
 	}
 
-
 	return check;
 }
 
@@ -144,24 +144,29 @@ int main()
 	srand((unsigned)time(NULL));
 
 	//TUK DOBAVI TEKSTOV FAIL
+	int fileNumber = rand() % 9 + 1;
+
+	char fileName[2];
+	fileName[0] = 'S';
+	fileName[1] = fileNumber + '0';
+
+	ifstream file;
+	file.open(fileName, ios::in);
+
+	int** sudoku = new int* [N];
+	for (int i = 0; i < N; i++) {
+		sudoku[i] = new int[N];
+	}
 
 
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			file >> sudoku[i][j];
+		}
+	}
+	file.close();
 
 
-
-
-
-
-	int sudoku[N][N] = {
-		 { 3, 1, 6, 5, 7, 8, 4, 9, 2 },
-		 { 5, 2, 9, 1, 3, 4, 7, 6, 8 },
-		 { 4, 8, 7, 6, 2, 9, 5, 3, 1 },
-		 { 2, 6, 3, 4, 1, 5, 9, 8, 7 },
-		 { 9, 7, 4, 8, 6, 3, 1, 2, 5 },
-		 { 8, 5, 1, 7, 9, 2, 6, 4, 3 },
-		 { 1, 3, 8, 9, 4, 7, 2, 5, 6 },
-		 { 6, 9, 2, 3, 5, 1, 8, 7, 4 },
-		 { 7, 4, 5, 2, 8, 6, 3, 1, 9 } };
 
 	//DINAMI4NA PAMET
 
@@ -182,7 +187,10 @@ int main()
 	cout << numberOfChanges << endl;
 
 	int change;
-	int sudokuTemplate[N][N];
+	int** sudokuTemplate = new int* [N];
+	for (int i = 0; i < N; i++) {
+		sudokuTemplate[i] = new int[N];
+	}
 
 	//Here a few changes to sudoku are made it can be chaged by columns and rows depending on the random generated numbers which lead to certain operations
 	for (int s = 0; s < numberOfChanges; s++) {
@@ -347,16 +355,22 @@ int main()
 			}
 		}
 	}
+	for (int i = 0; i < N; i++) {
+		delete[] sudoku[i];
+	}
+	delete[] sudoku;
 
 	//TOVA GO MAHNI POSLE
 	printSudoku(sudokuTemplate);
 
-	int sudokuKey[N][N];
-	for (int y = 0; y < N; y++) {
+	int** sudokuKey = new int* [N];
+	for (int i = 0; i < N; i++) {
+		sudokuKey[i] = new int[N];
 		for (int u = 0; u < N; u++) {
-			sudokuKey[y][u] = sudokuTemplate[y][u];
+			sudokuKey[i][u] = sudokuTemplate[i][u];
 		}
 	}
+
 
 
 
@@ -431,12 +445,14 @@ int main()
 	printSudoku(sudokuTemplate);
 
 	//The matrix sudokuGame is the one that will be changed by the user, the sudokuTemplate - the one which tells if the numbers can be changed and the sudokuKey - the one that will validate the sudokuGame.
-	int sudokuGame[N][N];
-	for (int pp = 0; pp < N; pp++) {
-		for (int oo = 0; oo < N; oo++) {
-			sudokuGame[pp][oo] = sudokuTemplate[pp][oo];
+	int** sudokuGame = new int* [N];
+	for (int i = 0; i < N; i++) {
+		sudokuGame[i] = new int[N];
+		for (int u = 0; u < N; u++) {
+			sudokuGame[i][u] = sudokuTemplate[i][u];
 		}
 	}
+	
 	
 	int row = 0;
 	int column = 0;
@@ -492,12 +508,14 @@ int main()
 		printSudoku(sudokuGame);
 
 	}
+
 	bool isSudokuRight = 1;
 
 	for (int d = 0; d < N; d++) {
 		for (int f = 0; f < N; f++) {
 			if (sudokuGame[d][f] != sudokuKey[d][f]) {
 				isSudokuRight = 0;
+				break;
 			}
 		}
 	}
@@ -508,9 +526,17 @@ int main()
 		cout << "You won!";
 	}
 	else {
-		cout << "Your sudoku is incorrect!" << "\n" << "Do you want to end the game or continue trying?" << "\n" << "Type E - end C - continue: ";
+		cout << "Your sudoku is incorrect!" << "\n" << "Do you want to end the game, continue trying or try again?" << "\n" << "Type E - end or C - continue: ";
 		cin >> response;
 		cout << "\n";
+
+		//Validation of the data the user enters. 
+		while (level != 'E' && level != 'C') {
+			cout << "Please enter a valid answer: ";
+			cin >> response;
+		}
+
+
 		if (response == 'E') {
 			cout << "This was the correct sudoku:" << "\n";
 			printSudoku(sudokuTemplate);
@@ -521,6 +547,8 @@ int main()
 		bool isSudokuRight = 0;
 
 		if (response == 'C') {
+			printSudoku(sudokuTemplate);
+			printSudoku(sudokuGame);
 
 			while (isSudokuRight == 0) {
 
@@ -528,10 +556,8 @@ int main()
 				cin >> row >> column >> number;
 				cout << "\n";
 
-				//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
 
-
-					//Validataion of the data the user enters.
+				//Validataion of the data the user enters.
 				bool check = 0;
 				check = isDataCorrect(row, column, number, sudokuTemplate);
 				while (check == 0) {
@@ -567,5 +593,21 @@ int main()
 			}
 		}
 	}
+
+	for (int i = 0; i < N; i++) {
+		delete[] sudokuTemplate[i];
+	}
+	delete[] sudokuTemplate;
+
+	for (int i = 0; i < N; i++) {
+		delete[] sudokuKey[i];
+	}
+	delete[] sudokuKey;
+
+	for (int i = 0; i < N; i++) {
+		delete[] sudokuGame[i];
+	}
+	delete[] sudokuGame;
+
 	return 0;
 }
