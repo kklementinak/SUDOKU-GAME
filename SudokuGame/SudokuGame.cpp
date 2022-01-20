@@ -144,14 +144,25 @@ int main()
 	srand((unsigned)time(NULL));
 
 	//TUK DOBAVI TEKSTOV FAIL
-	int fileNumber = rand() % 9 + 1;
+	int fileNumber = rand() % N + 1;
+	char fileNumber1 = fileNumber + 48;
 
-	char fileName[2];
+
+	char *fileName=new char [7];
 	fileName[0] = 'S';
-	fileName[1] = fileNumber + '0';
-
+	fileName[1] = fileNumber1;
+	fileName[2] = '.';
+	fileName[3] = 't';
+	fileName[4] = 'x';
+	fileName[5] = 't';
+	fileName[6] = '\0';
 	ifstream file;
 	file.open(fileName, ios::in);
+
+	//
+	if (!file.is_open()) {
+		cout << endl<<"0";
+	}
 
 	int** sudoku = new int* [N];
 	for (int i = 0; i < N; i++) {
@@ -167,8 +178,6 @@ int main()
 	file.close();
 
 
-
-	//DINAMI4NA PAMET
 
 	printSudoku(sudoku);
 	cout << "............................." << endl;
