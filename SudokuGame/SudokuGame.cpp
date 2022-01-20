@@ -163,8 +163,17 @@ int main()
 		 { 6, 9, 2, 3, 5, 1, 8, 7, 4 },
 		 { 7, 4, 5, 2, 8, 6, 3, 1, 9 } };
 
+	//DINAMI4NA PAMET
+
 	printSudoku(sudoku);
 	cout << "............................." << endl;
+	int** sudokuMixer = new int* [N];
+	for (int i = 0; i < N; i++) {
+		sudokuMixer[i] = new int[N];
+		for (int j = 0; j < N; j++) {
+			sudokuMixer[i][j] = sudoku[i][j];
+		}
+	}
 
 
 	int numberOfChanges;
@@ -191,13 +200,13 @@ int main()
 			cout << row2 << endl;
 			for (int c = 0; c < N; c++) {
 				for (int s = 0; s < N; s++) {
-					sudokuTemplate[c][s] = sudoku[c][s];
+					sudokuTemplate[c][s] = sudokuMixer[c][s];
 
 					if (c == row) {
-						sudokuTemplate[c][s] = sudoku[row2][s];
+						sudokuTemplate[c][s] = sudokuMixer[row2][s];
 					}
 					if (c == row2) {
-						sudokuTemplate[c][s] = sudoku[row][s];
+						sudokuTemplate[c][s] = sudokuMixer[row][s];
 					}
 
 				}
@@ -215,13 +224,13 @@ int main()
 			cout << column << column2 << endl;
 			for (int cc = 0; cc < N; cc++) {
 				for (int ss = 0; ss < N; ss++) {
-					sudokuTemplate[cc][ss] = sudoku[cc][ss];
+					sudokuTemplate[cc][ss] = sudokuMixer[cc][ss];
 
 					if (ss == column) {
-						sudokuTemplate[cc][ss] = sudoku[cc][column2];
+						sudokuTemplate[cc][ss] = sudokuMixer[cc][column2];
 					}
 					if (ss == column2) {
-						sudokuTemplate[cc][ss] = sudoku[cc][column];
+						sudokuTemplate[cc][ss] = sudokuMixer[cc][column];
 					}
 
 				}
@@ -232,7 +241,7 @@ int main()
 
 
 
-		// at the following two we will use the numbers 1,2,3 to tell whitch whole three we will be taking.
+		// At the following two we will use the numbers 1,2,3 to tell whitch whole three we will be taking.
 		// That's why we use N/3 (9/3=3).
 
 
@@ -248,24 +257,25 @@ int main()
 				for (int s = 0; s < N; s++) {
 
 					sudokuTemplate[c][s] = sudoku[c][s];
+					//The third one will always be calculated by 3*row-1, so the following will be 3 * rows - 2, 3 * rows2 - 3.
 					//We substract one because our matrx indices start from 0 and not 1.
-					if (c == (3 * rows - 3)) {//row 0
-						sudokuTemplate[c][s] = sudoku[3 * rows2 - 3][s];
+					if (c == (3 * rows - 3)) {
+						sudokuTemplate[c][s] = sudokuMixer[3 * rows2 - 3][s];
 					}
-					if (c == (3 * rows - 2)) {//row 1
-						sudokuTemplate[c][s] = sudoku[3 * rows2 - 2][s];
+					if (c == (3 * rows - 2)) {
+						sudokuTemplate[c][s] = sudokuMixer[3 * rows2 - 2][s];
 					}
-					if (c == (3 * rows - 1)) {//row 2
-						sudokuTemplate[c][s] = sudoku[3 * rows2 - 1][s];
+					if (c == (3 * rows - 1)) {
+						sudokuTemplate[c][s] = sudokuMixer[3 * rows2 - 1][s];
 					}
 					if (c == (3 * rows2 - 3)) {
-						sudokuTemplate[c][s] = sudoku[3 * rows - 3][s];
+						sudokuTemplate[c][s] = sudokuMixer[3 * rows - 3][s];
 					}
 					if (c == (3 * rows2 - 2)) {
-						sudokuTemplate[c][s] = sudoku[3 * rows - 2][s];
+						sudokuTemplate[c][s] = sudokuMixer[3 * rows - 2][s];
 					}
 					if (c == (3 * rows2 - 1)) {
-						sudokuTemplate[c][s] = sudoku[3 * rows - 1][s];
+						sudokuTemplate[c][s] = sudokuMixer[3 * rows - 1][s];
 					}
 				}
 
@@ -287,34 +297,47 @@ int main()
 			
 			for (int v = 0; v < N; v++){
 				for (int c = 0; c < N; c++) { 
-				sudokuTemplate[v][c] = sudoku[v][c];
+				sudokuTemplate[v][c] = sudokuMixer[v][c];
+				//The third one will always be calculated by 3*columns-1, so the following will be 3 * columns - 2, 3 * columns - 3.
+				//We substract one because our matrx indices start from 0 and not 1.
 					if (c == (3 * columns - 3)) {
-						sudokuTemplate[v][c] = sudoku[v][3 * columns2 - 3];
+						sudokuTemplate[v][c] = sudokuMixer[v][3 * columns2 - 3];
 					}
 					if (c == (3 * columns - 2)) {
-						sudokuTemplate[v][c] = sudoku[v][3 * columns2 - 2];
+						sudokuTemplate[v][c] = sudokuMixer[v][3 * columns2 - 2];
 					}
 					if (c == (3 * columns - 1)) {
-						sudokuTemplate[v][c] = sudoku[v][3 * columns2 - 1];
+						sudokuTemplate[v][c] = sudokuMixer[v][3 * columns2 - 1];
 					}
 
 					if (c == (3 * columns2 - 3)) {
-						sudokuTemplate[v][c] = sudoku[v][3 * columns - 3];
+						sudokuTemplate[v][c] = sudokuMixer[v][3 * columns - 3];
 					}
 				
 					if (c == (3 * columns2 - 2)) {
-						sudokuTemplate[v][c] = sudoku[v][3 * columns - 2];
+						sudokuTemplate[v][c] = sudokuMixer[v][3 * columns - 2];
 					}
 					if (c == (3 * columns2 - 1)) {
-						sudokuTemplate[v][c] = sudoku[v][3 * columns - 1];
+						sudokuTemplate[v][c] = sudokuMixer[v][3 * columns - 1];
 					}
 				}
 			}
 			printSudoku(sudokuTemplate);
 			cout << "............................." << endl;
 		}
+		for (int y = 0; y < N; y++) {
+			for (int u = 0; u < N; u++) {
+				sudokuMixer[y][u] = sudokuTemplate[y][u];
+			}
+		}
 	
 	}
+
+	for (int i = 0; i < N; i++) {
+		delete [] sudokuMixer[i];
+	}
+	delete[] sudokuMixer;
+
 
 	//If there are no changes the sudoku is the one from the text file.
 	if (numberOfChanges == 0) {
@@ -331,7 +354,7 @@ int main()
 	int sudokuKey[N][N];
 	for (int y = 0; y < N; y++) {
 		for (int u = 0; u < N; u++) {
-			sudokuKey[y][u] = sudoku[y][u];
+			sudokuKey[y][u] = sudokuTemplate[y][u];
 		}
 	}
 
