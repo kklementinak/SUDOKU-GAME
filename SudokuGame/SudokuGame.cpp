@@ -317,8 +317,6 @@ int main()
 							sudokuTemplate[c][s] = sudokuMixer[3 * rows - 1][s];
 						}
 					}
-
-
 				}
 			}
 
@@ -357,12 +355,12 @@ int main()
 					}
 				}
 			}
+
 			for (int y = 0; y < N; y++) {
 				for (int u = 0; u < N; u++) {
 					sudokuMixer[y][u] = sudokuTemplate[y][u];
 				}
 			}
-
 		}
 
 		for (int i = 0; i < N; i++) {
@@ -393,9 +391,9 @@ int main()
 				sudokuKey[i][u] = sudokuTemplate[i][u];
 			}
 		}
-
-		//MAHNI
-		printSudoku(sudokuKey);
+		
+		//uncomment for easier examination of the code
+		//printSudoku(sudokuKey);
 
 
 		// Here the user chooses which level to play. 
@@ -417,15 +415,15 @@ int main()
 		// Here are the possible levels and how they are dtertnmined:
 			// | Level Name | Initial no.of Givens | Initial no. of Missing
 			// 
-			// | Begginer   | more than 50         | less than 31
+			// | Begginer   | more than 50         | 17 - 31 //there is not a sudoku with less than 17 missing numbers
 			// | Easy       | 36 - 40              | 40 - 45
 			// | Medium     | 32 - 45              | 36 - 49
 			// | Hard       | 28 - 31              | 50 - 53
 			// | Ultimate   | 22 - 27              | 54 - 59
-		//http://zhangroup.aporc.org/images/files/Paper_3485.pdf This is the resource i used for the information above.
+		//http://zhangroup.aporc.org/images/files/Paper_3485.pdf This is the resource i used for the information above. 
 
 		if (level == 'B') {
-			count = rand() % 30 + 1;
+			count = rand() % 14 + 17;
 		}
 		if (level == 'E') {
 			count = rand() % 5 + 40;
@@ -487,7 +485,6 @@ int main()
 			cout << "\n";
 
 
-
 			//Validataion of the data the user enters.
 			bool check = 0;
 			check = isDataCorrect(row, column, number, sudokuTemplate);
@@ -537,6 +534,9 @@ int main()
 					isSudokuRight = 0;
 					break;
 				}
+			}
+			if (isSudokuRight == 0) {
+				break;
 			}
 		}
 				
