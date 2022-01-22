@@ -8,6 +8,8 @@ const int TWO_ROWS = 1;
 const int TWO_COLUMNS = 2;
 const int THREE_ROWS = 3;
 const int THREE_COLUMNS = 4;
+const int MAX_SIZE = 1024;
+
 
 
 
@@ -82,7 +84,8 @@ int secondVariable2(int second, int first) {
 }
 
 
-//how to print cool sudoku
+
+//How to print cool sudoku
 void printSudoku(int** display) {
 
 	for (int hh = 0; hh < N; hh++) {
@@ -138,24 +141,30 @@ bool isDataCorrect(int row, int column, int number, int** sudokuMatrix) {
 	return check;
 }
 
+//This function checks if the answers are correct, if they are not correct it allows to reenter the value.
+char isDataValid(char text) {
+	while (text != 'N' && text != 'Y') {
+		cout << "Please enter a valid answer: ";
+		cin >> text;
+		cout << "\n";
+	}
+	return text;
+}
 
 int main()
 {
 	srand((unsigned)time(NULL));
 	
 
-	cout << "Are you familiar with the sudoku rules?" << endl << "type: Y-to continue N-to see them: ";
+	cout << "Are you familiar with the sudoku rules?" << endl << "Type: Y - to continue or N - to see them: ";
 	char rules;
 	cin >> rules;
 	cout << '\n';
-	while (rules != 'N' && rules != 'Y') {
-		cout << "Please enter a valid answer: ";
-		cin >> rules;
-		cout << '\n';
-	}
+
+	rules = isDataValid(rules);
 	if (rules == 'N'){
 
-		char* fileRules = new char[1024];
+		char* fileRules = new char[MAX_SIZE];
 		ifstream sRules;
 
 		sRules.open("SRules.txt");
@@ -286,6 +295,7 @@ int main()
 					for (int s = 0; s < N; s++) {
 
 						sudokuTemplate[c][s] = sudoku[c][s];
+
 						//The third one will always be calculated by 3*row-1, so the following will be 3 * rows - 2, 3 * rows2 - 3.
 						//We substract one because our matrx indices start from 0 and not 1.
 						if (c == (3 * rows - 3)) {
@@ -322,6 +332,7 @@ int main()
 				for (int v = 0; v < N; v++) {
 					for (int c = 0; c < N; c++) {
 						sudokuTemplate[v][c] = sudokuMixer[v][c];
+
 						//The third one will always be calculated by 3*columns-1, so the following will be 3 * columns - 2, 3 * columns - 3.
 						//We substract one because our matrx indices start from 0 and not 1.
 						if (c == (3 * columns - 3)) {
@@ -337,7 +348,6 @@ int main()
 						if (c == (3 * columns2 - 3)) {
 							sudokuTemplate[v][c] = sudokuMixer[v][3 * columns - 3];
 						}
-
 						if (c == (3 * columns2 - 2)) {
 							sudokuTemplate[v][c] = sudokuMixer[v][3 * columns - 2];
 						}
@@ -369,6 +379,7 @@ int main()
 				}
 			}
 		}
+
 		for (int i = 0; i < N; i++) {
 			delete[] sudoku[i];
 		}
@@ -383,7 +394,8 @@ int main()
 			}
 		}
 
-
+		//MAHNI
+		printSudoku(sudokuKey);
 
 
 		// Here the user chooses which level to play. 
@@ -430,7 +442,7 @@ int main()
 
 		cout << "\n";
 
-		//we make a new variable which we will use later on beacuse rom the first one we will extract numbers and the data will be lost.
+		//We make a new variable which we will use later on beacuse rom the first one we will extract numbers and the data will be lost.
 		int counter = count;
 
 
@@ -466,7 +478,7 @@ int main()
 		int row = 0;
 		int column = 0;
 		int number = 0;
-		char answer;
+		char answer = ' ';
 		cout << "The first cooridnates digits are 1. The fist number is the row, then the column and the missing number at the end." << "\n" << "for example the coordinates of the tird number in the second row are: *2 3 number* " << "\n";
 
 		while (counter > 0) {
@@ -501,17 +513,16 @@ int main()
 			cout << "Do you want to validate you solution?" << "\n" << "type: Y-yes N-no" << "\n" << "Please enter your desicion: ";
 			cin >> answer;
 			cout << "\n";
-			while (answer != 'N' && answer != 'Y') {
-				cout << "please enter a valid level: ";
-				cin >> answer;
-			}
-			if (answer == 'Y') {
 
+			answer = isDataValid(answer);
+		
+
+			if (answer == 'Y') {
 				if (number == sudokuKey[row][column]) {
-					cout << "Your answer is right." << "\n";
+					cout << "Your answer is right." << "\n" << "\n";
 				}
 				else {
-					cout << "Your answer is wrong." << "\n";
+					cout << "Your answer is wrong." << "\n" << "\n";
 				}
 			}
 			printSudoku(sudokuGame);
@@ -528,20 +539,21 @@ int main()
 				}
 			}
 		}
-
+				
 
 		if (isSudokuRight == 1) {
 			cout << "You won!";
 		}
 		else {
-			cout << "Your sudoku is incorrect!" << "\n" << "Do you want to end the game, continue trying or try another one?" << "\n" << "Type E - end, C - continue or A - again: ";
+			cout << "Your sudoku is incorrect!" << "\n" << "Do you want to end the game, continue trying or try another one?" << "\n" << "Type E - end, C - continue or A - another one: ";
 			cin >> response;
 			cout << "\n";
 
 			//Validation of the data the user enters. 
-			while (level != 'E' && level != 'C' && level != 'A') {
+			while (response != 'E' && response != 'C' && response != 'A') {
 				cout << "Please enter a valid answer: ";
 				cin >> response;
+				cout << "\n";
 			}
 
 
@@ -550,9 +562,8 @@ int main()
 				printSudoku(sudokuTemplate);
 			}
 
-			bool check = 1;
 
-			bool isSudokuRight = 0;
+			bool check = 1;
 
 			if (response == 'C') {
 				printSudoku(sudokuTemplate);
@@ -563,16 +574,16 @@ int main()
 					cout << "\n" << "Please enter the missing digits: ";
 					cin >> row >> column >> number;
 					cout << "\n";
-
+					
 
 					//Validataion of the data the user enters.
-					bool check = 0;
 					check = isDataCorrect(row, column, number, sudokuTemplate);
 					while (check == 0) {
 
 						cin >> row >> column >> number;
 						check = isDataCorrect(row, column, number, sudokuTemplate);
 					}
+
 					//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
 					row--;
 					column--;
@@ -584,22 +595,38 @@ int main()
 					else if (sudokuGame[row][column] != 0 && sudokuTemplate[row][column] == 0) {
 						sudokuGame[row][column] = number;
 					}
+					
 
 					for (int dd = 0; dd < N; dd++) {
 						for (int ff = 0; ff < N; ff++) {
-							if (number != sudokuKey[dd][ff]) {
+							if (sudokuGame[dd][ff] != sudokuKey[dd][ff]) {
 								isSudokuRight = 0;
+								break;
 							}
 							else {
 								isSudokuRight = 1;
 							}
 						}
+						if (isSudokuRight == 0) {
+							break;
+						}
+					}
+					printSudoku(sudokuGame);
+					
+					if (isSudokuRight == 1) {
+					cout << "You won!";
+					cout << "\n";
+					}
+					
+					cout<<"Do you want one more game?" << "\n"<<"Type Y - yes or N -no:";
+					cin >> answer;
+					cout << "\n";
+					answer = isDataValid(answer);
+
+					if (answer == 'Y') {
+						response = 'A';
 					}
 				}
-				if (isSudokuRight == 1) {
-					cout << "You won!";
-				}
-
 			}
 		}
 
