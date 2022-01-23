@@ -1,0 +1,9 @@
+Sudoku is a logic-based, combinatorial number-placement puzzle. In classic sudoku, 
+the objective is to fill a 9 x 9 grid with digits so that each column, each row,
+and each of the nine 3 x 3 subgrids that compose the grid 
+(also called "boxes", "blocks", or "regions") contain all of the digits from 1 to 9. 
+The puzzle setter provides a partially completed grid, 
+which for a well-posed puzzle has a single solution. 
+For this one you have to type the number of the row, the column and the number. 
+If you think the number you entered is wrong you can validate it by answering the question "Do you want to validate?", 
+you can chage it by typing its coordinates and then 0. This will delete the number you have entered.
