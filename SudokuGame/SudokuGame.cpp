@@ -59,7 +59,7 @@ int main()
 
 		//Here the user chooses which level to play. 
 		char level;
-		cout << "Choose level of difficulty: B-beginner; E-easy; M-medium; H-hard; U-ultimate" << "\n" << "type only the capital letter of the level" << "\n" << "Please enter which level you want: ";
+		cout << "Choose level of difficulty: B-beginner; E-easy; M-medium; H-hard; U-ultimate" << "\n" << "Type only the capital letter of the level." << "\n" << "Please enter which level you want: ";
 		cin >> level;
 		cout << "\n";
 
@@ -68,7 +68,7 @@ int main()
 
 		//Validation of the data the user enters. 
 		while (level != 'B' && level != 'E' && level != 'M' && level != 'H' && level != 'U') {
-			cout << "please enter a valid level: ";
+			cout << "Please enter a valid level: ";
 			cin >> level;
 		}
 
@@ -128,7 +128,7 @@ int main()
 
 	
 
-		cout << "The first cooridnates digits are 1. The first number is the row, then the column and the missing number at the end." << "\n" << "for example the coordinates of the tird number in the second row are: *2 3 number*. " << "\n" << "Note: if you want to delete a number you have entered type its coordinates then 0." << "\n";
+		cout << "The first cooridnates digits are 1. The first number is the row, then the column and the missing number at the end." << "\n" << "For example the coordinates of the tird number in the second row are: *2 3 number*. " << "\n" << "Note: if you want to delete a number you have entered type its coordinates then 0." << "\n";
 
 		while (counter > 0) {
 
