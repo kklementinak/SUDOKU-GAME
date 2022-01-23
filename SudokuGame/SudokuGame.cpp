@@ -116,11 +116,14 @@ void printSudoku(int** display) {
 	cout << "\n";
 }
 
+
 //The bool function checks if tha data that the user enters is valid.
-bool isDataCorrect(int row, int column, int number, int** sudokuMatrix) {
+bool isDataCorrect(char row, char column, char number, int** sudokuMatrix) {
+
 	bool check = 0;
+
 	//Here it checks if the data is within the borders of the sudoku indices.
-	if ((row + '0' < '0' || row + '0' > '9') || (column + '0' > '9' || column + '0' < '0') || (number + '0' > '9' || number + '0' < '0')) {
+	if ((row < '0' || row  > '9') || (column  > '9' || column  < '0') || (number  > '9' || number  < '0')) {
 		cout << "Invalid operation. There is no such number with these cordinates. Try anather one: ";
 		check = 0;
 		return check;
@@ -129,7 +132,7 @@ bool isDataCorrect(int row, int column, int number, int** sudokuMatrix) {
 		check = 1;
 	}
 	//Here it checks if the entered number can replace the one in the template. 
-	if (sudokuMatrix[row - 1][column - 1] != 0) {
+	if (sudokuMatrix[row - '0' - 1][column - '0' - 1] != 0) {
 		cout << "Invalid operation. You can't change this number. Try anather one: ";
 		check = 0;
 
@@ -139,6 +142,10 @@ bool isDataCorrect(int row, int column, int number, int** sudokuMatrix) {
 	}
 
 	return check;
+}
+
+int convertCharToInt(char data) {
+	return data - '0';
 }
 
 //This function checks if the answers are correct, if they are not correct it allows to reenter the value.
@@ -473,26 +480,37 @@ int main()
 		}
 
 
+		char row0 = '0';
+		char column0 = '0';
+		char number0 = '0';
+		char answer = ' ';
 		int row = 0;
 		int column = 0;
 		int number = 0;
-		char answer = ' ';
+
 		cout << "The first cooridnates digits are 1. The fist number is the row, then the column and the missing number at the end." << "\n" << "for example the coordinates of the tird number in the second row are: *2 3 number* " << "\n";
 
 		while (counter > 0) {
 			cout << "\n" << "Please enter the missing digits: ";
-			cin >> row >> column >> number;
+			cin >> row0 >> column0 >> number0;
 			cout << "\n";
-
+			//DALI E INT
 
 			//Validataion of the data the user enters.
 			bool check = 0;
-			check = isDataCorrect(row, column, number, sudokuTemplate);
+			check = isDataCorrect(row0, column0, number0, sudokuTemplate);
 			while (check == 0) {
 
-				cin >> row >> column >> number;
-				check = isDataCorrect(row, column, number, sudokuTemplate);
+				cin >> row0 >> column0 >> number0;
+				check = isDataCorrect(row0, column0, number0, sudokuTemplate);
 			}
+			//TUK OT CHAR V INT
+
+			row = convertCharToInt(row0);
+			column = convertCharToInt(column0);
+			number = convertCharToInt(number0);
+
+
 			//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
 			row--;
 			column--;
