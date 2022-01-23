@@ -11,7 +11,7 @@ If you think the number you entered is wrong you can validate it by answering th
 you can chage it by typing its coordinates and then 0. This will delete the number you have entered."
 
 So when you start the game the first thing you will see is the question "Are you familiar with the rules?"
-If you type Y the game will continue, but if you type N you will se the rules mentioned above.
+If you type Y the game will continue, but if you type N you will see the rules mentioned above.
 Then it will ask you which level you want to play. After you answer a sudoku will apper, this sudoku will be a well-mixed sudoku variant from one of the sudoku files.
 It will be mixed randomdly depending on generated numbers and math operations (it can have swiped columns, row or whole 3 rows/column swiped).
 Then you eneted the cooridinates and start to play. After every move you have the option to validate the move you have made by simply enetering Y/N. 
