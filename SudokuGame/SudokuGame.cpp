@@ -9,7 +9,7 @@
 * @idnumber 9MI0600060
 * @compiler VS
 *
-* <file with helper functions>
+* <game code>
 *
 */
 

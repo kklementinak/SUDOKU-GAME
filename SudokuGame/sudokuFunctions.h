@@ -1,3 +1,18 @@
+
+/**
+*
+* Solution to course project # 6
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2021/2022
+*
+* @author Klementina Kartevska
+* @idnumber 9MI0600060
+* @compiler VS
+*
+* <file with helper functions>
+*
+*/
 #pragma once
 
 
