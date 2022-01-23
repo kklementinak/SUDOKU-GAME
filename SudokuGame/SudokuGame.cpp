@@ -144,6 +144,7 @@ bool isDataCorrect(char row, char column, char number, int** sudokuMatrix) {
 	return check;
 }
 
+//Converting the data from char to int.
 int convertCharToInt(char data) {
 	return data - '0';
 }
@@ -157,6 +158,7 @@ char isDataValid(char text) {
 	}
 	return text;
 }
+
 
 int main()
 {
@@ -363,6 +365,7 @@ int main()
 				}
 			}
 
+			//Here we give the mixer the template values in order to be able to mix the following variations, beacuse if we don't do it it will be giving wrong output.
 			for (int y = 0; y < N; y++) {
 				for (int u = 0; u < N; u++) {
 					sudokuMixer[y][u] = sudokuTemplate[y][u];
@@ -390,7 +393,8 @@ int main()
 		}
 		delete[] sudoku;
 
-
+		
+		//The will help in the examination of the game(if the data is correct or else).
 		int** sudokuKey = new int* [N];
 		for (int i = 0; i < N; i++) {
 			sudokuKey[i] = new int[N];
@@ -403,7 +407,7 @@ int main()
 		//printSudoku(sudokuKey);
 
 
-		// Here the user chooses which level to play. 
+		//Here the user chooses which level to play. 
 		char level;
 		cout << "Choose level of difficulty: B-beginner; E-easy; M-medium; H-hard; U-ultimate" << "\n" << "type only the capital letter of the level" << "\n" << "Please enter which level you want: ";
 		cin >> level;
@@ -494,18 +498,17 @@ int main()
 			cout << "\n" << "Please enter the missing digits: ";
 			cin >> row0 >> column0 >> number0;
 			cout << "\n";
-			//DALI E INT
+			
 
 			//Validataion of the data the user enters.
 			bool check = 0;
 			check = isDataCorrect(row0, column0, number0, sudokuTemplate);
 			while (check == 0) {
-
 				cin >> row0 >> column0 >> number0;
 				check = isDataCorrect(row0, column0, number0, sudokuTemplate);
 			}
-			//TUK OT CHAR V INT
 
+			//Converting the data from char ti int.
 			row = convertCharToInt(row0);
 			column = convertCharToInt(column0);
 			number = convertCharToInt(number0);
@@ -544,6 +547,7 @@ int main()
 
 		}
 
+		//Checking if the sudoku is completly the same as the key.
 		bool isSudokuRight = 1;
 
 		for (int d = 0; d < N; d++) {
@@ -614,7 +618,7 @@ int main()
 						sudokuGame[row][column] = number;
 					}
 					
-
+					//Checking if the sudoku is completly the same as the key.
 					for (int dd = 0; dd < N; dd++) {
 						for (int ff = 0; ff < N; ff++) {
 							if (sudokuGame[dd][ff] != sudokuKey[dd][ff]) {
