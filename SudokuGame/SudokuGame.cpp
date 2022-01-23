@@ -54,7 +54,7 @@ int main()
 		}
 		
 		//uncomment for easier examination of the code
-		printSudoku(sudokuKey);
+		//printSudoku(sudokuKey);
 
 
 		//Here the user chooses which level to play. 
