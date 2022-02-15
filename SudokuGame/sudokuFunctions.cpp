@@ -20,6 +20,13 @@
 using namespace std;
 # define N 9
 
+//
+const int TWO_ROWS = 1;
+const int TWO_COLUMNS = 2;
+const int THREE_ROWS = 3;
+const int THREE_COLUMNS = 4;
+const int MAX_SIZE = 1024;
+
 
 
 
@@ -264,7 +271,7 @@ int** mixSudoku(int** sudoku) {
 			for (int c = 0; c < N; c++) {
 				for (int s = 0; s < N; s++) {
 
-					sudokuTemplate[c][s] = sudoku[c][s];
+					sudokuTemplate[c][s] = sudokuMixer[c][s];
 
 					//The third one will always be calculated by 3*row-1, so the following will be 3 * rows - 2, 3 * rows2 - 3.
 					//We substract one because our matrx indices start from 0 and not 1.
@@ -409,7 +416,7 @@ bool isDataCorrect(char row, char column, char number, int** sudokuMatrix) {
 
 	//Here it checks if the data is within the borders of the sudoku indices.
 	if ((row < '0' || row  > '9') || (column > '9' || column < '0') || (number > '9' || number < '0')) {
-		cout << "Invalid operation. There is no such number with these cordinates. Try anather one: ";
+		cout << "Invalid operation. There is no such number with these cordinates. Try another one: ";
 		check = 0;
 		return check;
 	}
@@ -418,7 +425,7 @@ bool isDataCorrect(char row, char column, char number, int** sudokuMatrix) {
 	}
 	//Here it checks if the entered number can replace the one in the template. 
 	if (sudokuMatrix[row - '0' - 1][column - '0' - 1] != 0) {
-		cout << "Invalid operation. You can't change this number. Try anather one: ";
+		cout << "Invalid operation. You can't change this number. Try another one: ";
 		check = 0;
 
 	}
@@ -457,7 +464,7 @@ int solveSudoku(int counter, char row0, char column0, char number0, char answer,
 	number = convertCharToInt(number0);
 
 
-	//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we devide 1 from both
+	//Because the matrix indices start from 0 to 8 and we want to make it easier for the users we substract 1 from both
 	row--;
 	column--;
 
@@ -471,7 +478,7 @@ int solveSudoku(int counter, char row0, char column0, char number0, char answer,
 		sudokuGame[row][column] = number;
 	}
 
-	cout << "Do you want to validate you solution?" << "\n" << "type: Y-yes N-no" << "\n" << "Please enter your desicion: ";
+	cout << "Do you want to validate your solution?" << "\n" << "type: Y-yes N-no" << "\n" << "Please enter your decision: ";
 	cin >> answer;
 	cout << "\n";
 
@@ -508,7 +515,7 @@ bool isSudokuCorrect(int** sudokuGame, int** sudokuKey) {
 
 //One more game after the user finishes the first one and validation of the entered data.
 char oneMoreGame(char answer) {
-	cout << "\n" << "Do you want one more game?" << "\n" << "Type Y - yes or N -no:";
+	cout << "\n" << "Do you want one more game?" << "\n" << "Type Y - yes or N -no: ";
 	cin >> answer;
 	cout << "\n";
 	answer = isDataValid(answer);

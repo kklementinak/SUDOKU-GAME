@@ -165,7 +165,7 @@ int main()
 
 			if (response == 'E') {
 				cout << "This was the correct sudoku:" << "\n";
-				printSudoku(sudokuTemplate);
+				printSudoku(sudokuKey);
 
 				//Asking the user if they want another game.
 				answer = oneMoreGame(answer);

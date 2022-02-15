@@ -15,13 +15,6 @@
 */
 #pragma once
 
-
-const int TWO_ROWS = 1;
-const int TWO_COLUMNS = 2;
-const int THREE_ROWS = 3;
-const int THREE_COLUMNS = 4;
-const int MAX_SIZE = 1024;
-
 //This function checks if the answers are correct, if they are not correct it allows to reenter the value.
 char isDataValid(char text);
 
